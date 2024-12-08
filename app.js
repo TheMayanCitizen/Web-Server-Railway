@@ -7,12 +7,13 @@ const port = process.env.PORT;
 
 //Handlebars Partials
 app.set("view engine", "hbs");
+//Registrar los "components" que vamos a reutilizar en todas nuestas views
 hbs.registerPartials(__dirname + "/views/partials" /*  function (err) {} */);
 
-//Servir contenido estatico
+//Servir contenido estatico desde la carpeta public
 app.use(express.static("public"));
 
-//Usando handlebars(hbs)
+//Usando handlebars(hbs) y servir el contenido desde la carpeta views
 app.get("/", (req, res) => {
   res.render("home", {
     //Enviando argumentos para los html {{title}} {{name}}
@@ -23,7 +24,6 @@ app.get("/", (req, res) => {
 
 app.get("/generic", (req, res) => {
   res.render("generics", {
-    //Enviando argumentos para los html {{title}} {{name}}
     title: "Curso Node",
     name: "Alejandro Aguilar",
   });
@@ -36,7 +36,7 @@ app.get("/elements", (req, res) => {
   });
 });
 
-//Estos son para servir el contenido estatico de la carpeta public que moviste a template para poder usar handlebars
+//Estos son para servir el contenido estatico de la carpeta public que moviste a template para poder usar handlebars todo el contenido de index, elements y generics los copiaste a la carpeta views
 app.get("/generic", (req, res) => {
   res.sendFile(__dirname + "/public/generic.html");
 });
